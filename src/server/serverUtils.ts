@@ -14,7 +14,7 @@ type HttpMethod = 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE';
 
 interface Route {
   method: HttpMethod;
-  path: RegExp;
+  path: RegExp | string;
   handler: (req: http.IncomingMessage, res: http.ServerResponse, params?: string[]) => Promise<void>;
 }
 
