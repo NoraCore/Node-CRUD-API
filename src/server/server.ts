@@ -4,7 +4,7 @@ import type { Repository } from '../repositories/repository';
 import { User } from '../models/userModel';
 import { UserRepository } from '../repositories/userRepository';
 import { ErrorsMessage } from '../constants/errors';
-import {handleError, HttpStatusCode, Route, sendResponse} from './serverUtils';
+import { handleError, HttpStatusCode, Route, sendResponse } from './serverUtils';
 import { isUUID } from "../utils/utils";
 
 
