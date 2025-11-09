@@ -1,0 +1,33 @@
+{
+  "name": "node-crud-api",
+  "version": "1.0.0",
+  "description": "Implementation of simple CRUD API using in-memory database underneath.",
+  "main": "src/index.ts",
+  "engines": {
+    "node": ">=24.10.0",
+    "npm": ">=10.9.0"
+  },
+  "scripts": {
+    "build": "tsc",
+    "start:dev": "ts-node-dev --respawn src/index.ts",
+    "start:prod": "tsc && node dist/index.js",
+    "start:multi:dev": "ts-node-dev --respawn src/multi.ts",
+    "start:multi": "tsc && node dist/multi.js",
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NoraCore/Node-CRUD-API.git"
+  },
+  "keywords": [],
+  "author": "NoraCore",
+  "license": "ISC",
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/NoraCore/Node-CRUD-API/issues"
+  },
+  "homepage": "https://github.com/NoraCore/Node-CRUD-API#readme",
+  "dependencies": {
+    "@types/node": "^24.10.0"
+  }
+}
