@@ -1,5 +1,5 @@
-import * as http from 'node:http';
-import { conf } from './conf'
+import http from 'node:http';
+import { config } from './config'
 import type { Repository } from '../repositories/repository';
 import { User } from '../models/userModel';
 import { UserRepository } from '../repositories/userRepository';
@@ -25,7 +25,7 @@ const parseBody = async (req: http.IncomingMessage): Promise<string> => {
 }
 
 export const runServer = (
-  port = conf.port,
+  port = config.port,
   userRepository: Repository<User> = new UserRepository()) => {
   const routes: Route[] = [
     {
