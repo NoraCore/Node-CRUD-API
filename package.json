@@ -22,12 +22,19 @@
   "keywords": [],
   "author": "NoraCore",
   "license": "ISC",
-  "type": "module",
   "bugs": {
     "url": "https://github.com/NoraCore/Node-CRUD-API/issues"
   },
   "homepage": "https://github.com/NoraCore/Node-CRUD-API#readme",
   "dependencies": {
-    "@types/node": "^24.10.0"
+    "@types/dotenv": "^6.1.1",
+    "@types/jest": "^30.0.0",
+    "@types/node": "^24.10.0",
+    "cross-env": "^10.1.0",
+    "dotenv": "^17.2.3",
+    "jest": "^30.2.0",
+    "ts-node": "^10.9.2",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^5.9.3"
   }
 }

@@ -1,5 +1,5 @@
 import * as http from 'node:http';
-import { Config } from './config'
+import { conf } from './conf'
 import type { Repository } from '../repositories/repository';
 import { User } from '../models/userModel';
 import { UserRepository } from '../repositories/userRepository';
@@ -8,13 +8,13 @@ import { handleError, HttpStatusCode, Route, sendResponse } from './serverUtils'
 import { isUUID } from "../utils/utils";
 
 
-const parseBody = async (req: http.IncomingMessage) => {
-  new Promise((resolve, reject) => {
+const parseBody = async (req: http.IncomingMessage): Promise<string> => {
+  return new Promise((resolve, reject) => {
     let body = "";
-    req.on('data', (chunk) => {
+    req.on("data", (chunk) => {
       body += chunk.toString();
     });
-    req.on('end', async () => {
+    req.on("end", async () => {
       if (!body) {
         reject();
         return;
@@ -25,22 +25,22 @@ const parseBody = async (req: http.IncomingMessage) => {
 }
 
 export const runServer = (
-  port = Config.Port,
+  port = conf.port,
   userRepository: Repository<User> = new UserRepository()) => {
   const routes: Route[] = [
     {
-      method: 'GET',
-      path: 'api/users',
-      handler: async (_, res) => {
+      method: "GET",
+      path: "api/users",
+      handler: async (_: any, res: any) => {
         const users = await userRepository.getAll();
         sendResponse(res, HttpStatusCode.OK, users);
       }
     },
     {
-      method: 'GET',
+      method: "GET",
       path: /^\api\/users\/{[^/]+}$/,
-      handler: async (_, res, params) => {
-        const userId = params?.[0];
+      handler: async (_: any, res: any, params: any) => {
+        const userId = params?.[0] as string;
         if (!isUUID(userId)) {
           throw new Error(ErrorsMessage.InvalidUserIdError);
         }
@@ -54,9 +54,9 @@ export const runServer = (
       }
     },
     {
-      method: 'POST',
-      path: 'api/users',
-      handler: async (req, res) => {
+      method: "POST",
+      path: "api/users",
+      handler: async (req: any, res: any) => {
         const body = await parseBody(req);
         const createdUserModel = User.fromJSON(body);
         const createdUser = await userRepository.create(createdUserModel);
@@ -64,10 +64,10 @@ export const runServer = (
       }
     },
     {
-      method: 'PUT',
+      method: "PUT",
       path: /^\api\/users\/{[^/]+}$/,
-      handler: async (req, res, params) => {
-        const userId = params?.[0];
+      handler: async (req: any, res: any, params: any) => {
+        const userId = params?.[0] as string;
         if (!isUUID(userId)) {
           throw new Error(ErrorsMessage.InvalidUserIdError);
         }
@@ -90,16 +90,16 @@ export const runServer = (
       }
     },
     {
-      method: 'DELETE',
+      method: "DELETE",
       path: /^\api\/users\/{[^/]+}$/,
-      handler: async (_, res, params) => {
-        const userId = params?.[0];
+      handler: async (_: any, res: any, params: any) => {
+        const userId = params?.[0] as string;
         if (!isUUID(userId)) {
           throw new Error(ErrorsMessage.InvalidUserIdError);
         }
 
         const user = await userRepository.getById(userId);
-        if (!user){
+        if (!user || user.id === null){
           throw new Error(ErrorsMessage.UserNotFoundError);
         }
 
@@ -116,7 +116,7 @@ export const runServer = (
     try {
       const route = routes.find((r) =>
         r.method === req.method &&
-        (typeof r.path === 'string'
+        (typeof r.path === "string"
           ? r.path === req.url
         : r.path.test(req.url || ''))
       );
@@ -126,7 +126,7 @@ export const runServer = (
         return;
       }
 
-      const params = typeof route.path === 'string'
+      const params = typeof route.path === "string"
         ? undefined
         : (req.url || '')
           .match(route.path)
@@ -136,7 +136,7 @@ export const runServer = (
       handleError(res, error)
     }
   });
-  server.on('error', (err) => {
+  server.on("error", (err) => {
     console.log(`ServerError: ${err}`);
   });
   server.listen(port, () => {
