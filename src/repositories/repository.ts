@@ -13,12 +13,13 @@ export class InMemoryRepository<T extends { id: UUID | null }> implements Reposi
 
   async create(item: T): Promise<T> {
     const id = randomUUID()
-    this.items.set(id, item)
-    return item;
+    const newItem = { ...item, id };
+    this.items.set(id, newItem)
+    return newItem;
   }
 
   async delete(id: UUID): Promise<T | null> {
-    const item = this.getById(id);
+    const item = await this.getById(id);
     if (!item){
       return null
     }
@@ -30,7 +31,7 @@ export class InMemoryRepository<T extends { id: UUID | null }> implements Reposi
   }
 
   async update(item: T): Promise<T | null> {
-    if (item.id===null || !this.items.has(item.id)){
+    if (!item.id || !this.items.has(item.id)){
       return null
     }
     this.items.set(item.id, item);

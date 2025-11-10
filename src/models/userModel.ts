@@ -9,10 +9,10 @@ export class User {
   ) {}
 
   static validate(data: unknown): data is User {
-    if (typeof data !== "object" && data === null) return false;
+    if (typeof data !== "object" || data === null) return false;
     const obj = data as Record<string, unknown>;
-    if (typeof obj.name !== "string") return false;
-    if (typeof obj.age !== "number") return false;
+    if (typeof obj.name !== "string" || obj.name.trim() === "") return false;
+    if (typeof obj.age !== "number" || obj.age <= 0 || !Number.isInteger(obj.age) || obj.age > 110) return false;
     return !(!Array.isArray(obj.hobbies) || !obj.hobbies.every(h => typeof h === "string"));
   }
 
