@@ -72,7 +72,6 @@ curl -X POST http://localhost:4022/api/users -H "Content-Type: application/json"
 Replace <id>. You need an existing user ID
 ```
 curl -X PUT http://localhost:4022/api/users/<id> -H "Content-Type: application/json" --json '{"id":"<id>","name":"Alice Updated","age":26,"hobbies":["reading","cycling","swimming"]}'
-
 ```
 #### DELETE a user
 ```
