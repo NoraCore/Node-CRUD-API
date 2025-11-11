@@ -46,22 +46,21 @@ Windows CMD doesn’t recognize single quotes as string delimiters.
 On Windows CMD Use double quotes and escape the inner JSON.
 
 #### GET all users
-```
+```bash
 curl http://localhost:4022/api/users
-
 ```
 #### GET a single user
 Replace <id> with an actual user ID:
-```
+```bash
 curl http://localhost:4022/api/users/<id>
 ```
 #### POST (create a new user)
 Your POST expects a JSON body like this:
-```
+```bash
 curl -X POST http://localhost:4022/api/users -H "Content-Type: application/json" -d '{"name":"Alice","age":25,"hobbies":["reading","cycling"]}'
 
 ```
-```
+```json
 {
   "name": "Alice",
   "age": 25,
@@ -70,10 +69,10 @@ curl -X POST http://localhost:4022/api/users -H "Content-Type: application/json"
 ```
 #### PUT (update a user)
 Replace <id>. You need an existing user ID
-```
+```bash
 curl -X PUT http://localhost:4022/api/users/<id> -H "Content-Type: application/json" --json '{"id":"<id>","name":"Alice Updated","age":26,"hobbies":["reading","cycling","swimming"]}'
 ```
 #### DELETE a user
-```
+```bash
 curl -X DELETE http://localhost:4022/api/users/<id>
 ```
