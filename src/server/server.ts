@@ -30,7 +30,7 @@ export const runServer = (
   const routes: Route[] = [
     {
       method: "GET",
-      path: "api/users",
+      path: "/api/users",
       handler: async (_: any, res: any) => {
         const users = await userRepository.getAll();
         sendResponse(res, HttpStatusCode.OK, users);
@@ -38,7 +38,7 @@ export const runServer = (
     },
     {
       method: "GET",
-      path: /^\api\/users\/{[^/]+}$/,
+      path: /^\/api\/users\/([^/]+)$/,
       handler: async (_: any, res: any, params: any) => {
         const userId = params?.[0] as string;
         if (!isUUID(userId)) {
@@ -55,7 +55,7 @@ export const runServer = (
     },
     {
       method: "POST",
-      path: "api/users",
+      path: "/api/users",
       handler: async (req: any, res: any) => {
         const body = await parseBody(req);
         const createdUserModel = User.fromJSON(body);
@@ -65,7 +65,7 @@ export const runServer = (
     },
     {
       method: "PUT",
-      path: /^\api\/users\/{[^/]+}$/,
+      path: /^\/api\/users\/([^/]+)$/,
       handler: async (req: any, res: any, params: any) => {
         const userId = params?.[0] as string;
         if (!isUUID(userId)) {
@@ -91,7 +91,7 @@ export const runServer = (
     },
     {
       method: "DELETE",
-      path: /^\api\/users\/{[^/]+}$/,
+      path: /^\/api\/users\/([^/]+)$/,
       handler: async (_: any, res: any, params: any) => {
         const userId = params?.[0] as string;
         if (!isUUID(userId)) {

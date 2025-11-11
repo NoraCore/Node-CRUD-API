@@ -28,7 +28,10 @@ export const sendResponse = (res: http.ServerResponse, statusCode: number, data?
 }
 
 export const handleError = (res: http.ServerResponse, error: any) => {
-  if (error !instanceof Error) sendResponse(res, HttpStatusCode.BadRequest, { message: ErrorsMessage.InternalServerError });
+  if (!(error instanceof Error)) {
+    sendResponse(res, HttpStatusCode.BadRequest, {message: ErrorsMessage.InternalServerError});
+    return;
+  }
 
   switch (error.message) {
     case ErrorsMessage.InvalidUserDataError:
