@@ -1,4 +1,5 @@
 import type { UUID } from "node:crypto";
+import {ErrorsMessage} from "../constants/errors";
 
 export class User {
   constructor(
@@ -18,7 +19,7 @@ export class User {
 
   static fromJSON(body: string): User {
     const data = JSON.parse(body);
-    if (!User.validate(data)) throw new Error(`Invalid user data: ${data}`);
+    if (!User.validate(data)) throw new Error(ErrorsMessage.InvalidUserDataError);
 
     return new User(data.id, data.name, data.age, data.hobbies);
   }

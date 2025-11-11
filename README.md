@@ -40,3 +40,42 @@ npm test
 | POST   | `/api/users`      | Create a new user               |
 | PUT    | `/api/users/:id`  | Update an existing user         |
 | DELETE | `/api/users/:id`  | Delete a user                   |
+
+
+#### GET all users
+```
+curl http://localhost:3000/api/users
+
+```
+#### GET a single user
+Replace <id> with an actual user ID:
+```
+curl http://localhost:3000/api/users/<id>
+```
+#### POST (create a new user)
+Your POST expects a JSON body like this:
+```
+curl -X POST http://localhost:3000/api/users \
+  -H "Content-Type: application/json" \
+  -d '{"name":"Alice","age":25,"hobbies":["reading","cycling"]}'
+
+```
+```
+{
+  "name": "Alice",
+  "age": 25,
+  "hobbies": ["reading", "cycling"]
+}
+```
+#### PUT (update a user)
+Replace <id>. You need an existing user ID
+```
+curl -X PUT http://localhost:3000/api/users/<id> \
+  -H "Content-Type: application/json" \
+  -d '{"id":"<id>","name":"Alice Updated","age":26,"hobbies":["reading","cycling","swimming"]}'
+
+```
+#### DELETE a user
+```
+curl -X DELETE http://localhost:3000/api/users/<id>
+```

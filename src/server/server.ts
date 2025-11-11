@@ -16,7 +16,7 @@ const parseBody = async (req: http.IncomingMessage): Promise<string> => {
     });
     req.on("end", async () => {
       if (!body) {
-        reject();
+        reject(new Error("Empty request body"));
         return;
       }
       resolve(body);
@@ -86,7 +86,7 @@ export const runServer = (
         if (!updatedUser){
           throw new Error(ErrorsMessage.InvalidUserDataError);
         }
-        sendResponse(res, HttpStatusCode.OK, user);
+        sendResponse(res, HttpStatusCode.OK, updatedUser);
       }
     },
     {
