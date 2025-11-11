@@ -12,7 +12,7 @@
     "start": "npm run start:prod",
     "start:dev": "cross-env NODE_ENV=development npx tsx watch src/index.ts",
     "start:prod": "tsc && cross-env NODE_ENV=production node dist/index.js",
-    "start:multi:dev": "cross-env NODE_ENV=development CLUSTER_MODE=true ts-node-dev --respawn src/multi.ts",
+    "start:multi:dev": "cross-env NODE_ENV=development CLUSTER_MODE=true npx tsx watch src/multi.ts",
     "start:multi": "tsc && cross-env NODE_ENV=production CLUSTER_MODE=true node dist/multi.js",
     "test": "jest"
   },
