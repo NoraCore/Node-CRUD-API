@@ -9,20 +9,15 @@ const numCPUs: number = os.cpus().length;
 
 if (cluster.isPrimary) {
   console.log(`Master ${process.pid} is running`);
-
-  // Array of worker ports
   const workerPorts: number[] = [];
 
-  // Fork workers (numCPUs - 1)
   for (let i = 0; i < numCPUs - 1; i++) {
     const workerPort = PORT + i;
     workerPorts.push(workerPort);
 
-    // Pass port via environment variable
     cluster.fork({ WORKER_PORT: workerPort });
   }
 
-  // Restart worker if it dies
   cluster.on("exit", (worker: Worker, code: number, signal: string) => {
     console.log(`Worker ${worker.process.pid} died. Spawning a new one.`);
     cluster.fork();
