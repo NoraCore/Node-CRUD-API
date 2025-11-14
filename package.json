@@ -1,0 +1,45 @@
+{
+  "name": "node-crud-api",
+  "version": "1.0.0",
+  "description": "Implementation of simple CRUD API using in-memory database underneath.",
+  "main": "src/index.ts",
+  "engines": {
+    "node": ">=24.10.0",
+    "npm": ">=10.9.0"
+  },
+  "scripts": {
+    "build": "tsc",
+    "start": "npm run start:prod",
+    "start:dev": "cross-env NODE_ENV=development npx tsx watch src/index.ts",
+    "start:prod": "tsc && cross-env NODE_ENV=production node dist/index.js",
+    "start:multi:dev": "cross-env NODE_ENV=development CLUSTER_MODE=true npx tsx watch src/multi.ts",
+    "start:multi": "tsc && cross-env NODE_ENV=production CLUSTER_MODE=true node dist/multi.js",
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NoraCore/Node-CRUD-API.git"
+  },
+  "keywords": [],
+  "author": "NoraCore",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/NoraCore/Node-CRUD-API/issues"
+  },
+  "homepage": "https://github.com/NoraCore/Node-CRUD-API#readme",
+  "dependencies": {
+    "dotenv": "^17.2.3"
+  },
+  "devDependencies": {
+    "@types/dotenv": "^6.1.1",
+    "@types/jest": "^30.0.0",
+    "@types/node": "^24.10.0",
+    "cross-env": "^10.1.0",
+    "jest": "^30.2.0",
+    "nodemon": "^3.1.10",
+    "ts-jest": "^29.4.5",
+    "ts-node": "^10.9.2",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^5.9.3"
+  }
+}
